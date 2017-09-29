@@ -20,7 +20,7 @@ class Photo extends React.Component {
         </div>
         <div className="extra content ">
 
-
+        <div className="ui two buttons">
             <div className="ui labeled button">
               <div className="ui basic red button">
                  <i className="frown icon"></i>
@@ -37,6 +37,7 @@ class Photo extends React.Component {
                   <a className="ui  left pointing red label">
                     1200
                   </a>
+                </div>
                 </div>
 
 
