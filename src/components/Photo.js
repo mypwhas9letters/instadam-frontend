@@ -1,42 +1,60 @@
 import React from 'react'
 
-const Photo = (props) => {
-  const comments = props.photo.comments.map(comment => <p>{comment.content}</p>)
-  const username = props.photo.user.username
+class Photo extends React.Component {
+
+  findCommentsAndUsers = () => {
+    let loop = []
+    for (let i = 0; i < this.props.photo.comments.length; i++) {
+      loop.push(`${this.props.photo.users[i].username}:  ${this.props.photo.comments[i].content}`)
+    }
+    return loop
+  }
+
+  render() {
+      let comments = this.findCommentsAndUsers()
   return (
       <div className="card">
         <div className="image">
-          <h2>{username}</h2>
-          <img onClick={props.onClick} src={props.photo.url}/>
+          <h2>{this.props.photo.user.username}</h2>
+          <img onClick={this.props.onClick} src={this.props.photo.url} alt=""/>
         </div>
-        <div className="extra content">
+        <div className="extra content ">
 
 
-            <div className="ui labeled button" tabindex="0">
+            <div className="ui labeled button">
               <div className="ui basic red button">
                  <i className="frown icon"></i>
               </div>
-                <a className="ui basic red left pointing label">
+                <a className="ui red left pointing label">
                   823
                 </a>
               </div>
 
-              <div className="ui labeled button" tabindex="0">
+              <div className="ui labeled button">
                 <div className="ui basic red button">
                   <i className="thumbs outline down icon"></i>
                 </div>
-                  <a className="ui basic left pointing red label">
-                    120
+                  <a className="ui  left pointing red label">
+                    1200
                   </a>
                 </div>
 
 
            </div>
         <div className="content">
-         <h3 onClick={props.onClick} className="header">{comments}</h3>
+        {comments.map((comment, index) =>
+         <div key={index} onClick={this.props.onClick} className="description">{comment}</div>
+         )}
        </div>
+       <div className="extra content">
+        <div className="ui large transparent left icon input">
+          <i className="thumbs outline down icon"></i>
+          <input type="text" placeholder="Add Comment..."/>
+        </div>
+      </div>
      </div>
-  )
+   )
+  }
 }
 
 export default Photo

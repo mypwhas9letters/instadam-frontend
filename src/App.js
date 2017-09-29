@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import '../node_modules/semantic-ui-css/semantic.min.css'
 import Login from './components/Login.js'
 import Navbar from './components/Navbar.js'
 import Signup from './components/Signup.js'
 import PhotoContainer from './components/PhotoContainer.js'
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Footer from'./components/Footer.js'
+import UserContainer from './components/UserContainer.js'
 
 class App extends Component {
 
@@ -51,11 +52,20 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div>
         {!this.state.users.isLoggedIn ? <Route path='/' component={Navbar} /> : null}
+          <Route exact path = '/' render={()=> { return <PhotoContainer photos={this.state.photos} onClick={this.handleClick} />}}/>
           <Route exact path='/login' render={Login} />
           <Route exact path='/signup' render={Signup} />
-          <PhotoContainer photos={this.state.photos} onClick={this.handleClick} />
+          <Route path="/users/:id" render={(routeProps) => {
+                   const id = routeProps.match.params.id
+                   if (this.state.users.length) {
+                     return <UserContainer user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
+                   } else {
+                     return null
+                   }
+                 }} />
+          <Footer />
         </div>
       </Router>
     );
