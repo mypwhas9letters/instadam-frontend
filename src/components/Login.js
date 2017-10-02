@@ -20,22 +20,11 @@ handleSubmit = (event) => {
 
     const loginParams = { username: this.state.username, password: this.state.password}
     loginUser(loginParams)
-    .then((user) => {
-      if (user.message !== "Invalid User") {
-      localStorage.setItem("jwtToken", user.jwt)
-       this.props.history.push('/home')
-    }})
-
-
+    this.props.onLogin(loginParams)
     this.setState({
       username: "",
       password: ""
     })
-
-    
- 
-
-
 }
 
 handleUsernameChange = (event) => {

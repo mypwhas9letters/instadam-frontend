@@ -8,7 +8,7 @@ import { findUserId } from '../services/user.js'
 
 
 
-const Navbar = () => {
+const Navbar = (props) => {
   if (localStorage.getItem('jwtToken')) {
       return(
     <div className="ui menu inverted purple">
@@ -16,8 +16,8 @@ const Navbar = () => {
         <img src={instadamWhiteMid} className="App-logo" alt="logo" />
         <img src={logo} className="App-instadam" alt="logo" />
         <NavLink className="item right" to="/home" exact activeStyle={{background: 'hotpink'}}>Home</NavLink>
-        <NavLink className="item" to="/profile" exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
-        <NavLink onClick={logoutUser} className="item" to="/login" exact activeStyle={{background: 'hotpink'}}>Logout</NavLink>
+        <NavLink className="item" to={`/users/${localStorage.getItem('user_id')}`} exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
+        <NavLink onClick={props.onClick} className="item" to="/login" exact activeStyle={{background: 'hotpink'}}>Logout</NavLink>
       </div>
     </div>
   )
