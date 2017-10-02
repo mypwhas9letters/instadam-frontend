@@ -10,6 +10,13 @@ class Photo extends React.Component {
     return listOfComments
   }
 
+  addComment = (event) => {
+    event.preventDefault()
+    console.log(localStorage.getItem('user_id'))
+    console.log(event.target.firstElementChild.value)
+    console.log(this.props.photo.id)
+  }
+
   render() {
     let comments = this.findCommentsAndUsers()
     return (
@@ -36,7 +43,10 @@ class Photo extends React.Component {
         <div className="extra content">
           <div className="ui large transparent left icon input">
             <i className="thumbs outline down icon"></i>
+            <form onSubmit={this.addComment}>
             <input type="text" placeholder="Add Comment..."/>
+            <input type="submit" value="Add Comment"/>
+            </form>
           </div>
         </div>
       </div>

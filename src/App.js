@@ -10,6 +10,7 @@ import {Layer, Rect, Stage, Group} from 'react-konva';
 import Welcome from './components/Welcome.js'
 import { loginUser, logoutUser } from './services/user.js'
 import { Redirect } from 'react-router-dom'
+import { uploadPhoto } from './services/photo.js'
 
 
 
@@ -20,6 +21,15 @@ class App extends Component {
     photos: [],
     isLoggedIn: false,
     currentUser: {}
+  }
+
+  uploadPhoto = (pictureParams) => {
+    uploadPhoto(pictureParams)
+    .then((photo) => {
+      this.setState({
+        photos: [...this.state.photos, photo]
+      })
+    })
   }
 
   login = (loginParams) => {
@@ -66,11 +76,7 @@ class App extends Component {
 
   }
 
-  setCurrentUser = () => {
-    this.setState({
-      currentUser: 'hello'
-    })
-  }
+
 
   handleSubmit = (event) => {
 
@@ -107,7 +113,7 @@ class App extends Component {
           <Route path="/users/:id" render={(routeProps) => {
                    const id = routeProps.match.params.id
                    if (this.state.users.length) {
-                     return <UserContainer user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
+                     return <UserContainer onUpload={this.uploadPhoto} user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
                    } else {
                      return null
                    }
