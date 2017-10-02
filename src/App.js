@@ -6,6 +6,10 @@ import PhotoContainer from './components/PhotoContainer.js'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Footer from'./components/Footer.js'
 import UserContainer from './components/UserContainer.js'
+import {Layer, Rect, Stage, Group} from 'react-konva';
+import Welcome from './components/Welcome.js'
+
+
 
 class App extends Component {
 
@@ -53,8 +57,9 @@ class App extends Component {
     return (
       <Router>
         <div>
-        {!this.state.users.isLoggedIn ? <Route path='/' component={Navbar} /> : null}
-          <Route exact path = '/' render={()=> { return <PhotoContainer photos={this.state.photos} onClick={this.handleClick} />}}/>
+          {!this.state.users.isLoggedIn ? <Route path='/' component={Navbar} /> : null}
+          <Route exact path='/welcome' component={Welcome} />
+          <Route exact path = '/home' render={()=> { return <PhotoContainer photos={this.state.photos} onClick={this.handleClick} />}}/>
           <Route exact path='/login' render={Login} />
           <Route exact path='/signup' render={Signup} />
           <Route path="/users/:id" render={(routeProps) => {

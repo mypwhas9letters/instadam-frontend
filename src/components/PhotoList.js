@@ -5,7 +5,7 @@ const PhotoList = (props) => {
 
   return (
     <div className="ui container">
-      <div className="ui link cards">
+      <div className="ui cards">
       {props.photos.map((photo, index) => <Photo key={index} photo={photo} onClick={props.onClick} />)}
       </div>
     </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import instadamWhiteMid from '../instadamWhiteMid.png';
+
 
 const Signup = () => {
   return(
@@ -6,7 +8,7 @@ const Signup = () => {
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui purple image header">
-            <img src="./instadamWhiteMid.png" className="image" alt=""/>
+            <img src={instadamWhiteMid} className="image" alt=""/>
             <div className="content">
               Create a New Account
             </div>
@@ -26,7 +28,7 @@ const Signup = () => {
             </div>
           </form>
           <div className="ui message">Existing User?
-            <a href="/"> Log In</a>
+            <a href="/login"> Log In</a>
           </div>
         </div>
       </div>

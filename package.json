@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^15.0.0",
+    "konva": "^1.6.8",
+    "react": "^15.6.2",
     "react-dom": "^15.0.0",
+    "react-konva": "^1.1.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
     "semantic-ui-css": "^2.2.12",
