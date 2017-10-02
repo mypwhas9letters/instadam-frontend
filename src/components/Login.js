@@ -1,9 +1,61 @@
 import React from 'react'
 import instadamWhiteMid from '../instadamWhiteMid.png';
+import { loginUser } from '../services/user.js'
+import { Redirect } from 'react-router-dom'
 
 
-const Login = () => {
-  return(
+class Login extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+handleSubmit = (event) => {
+
+    event.preventDefault()
+
+    const loginParams = { username: this.state.username, password: this.state.password}
+    loginUser(loginParams)
+    .then((user) => {
+      if (user.message !== "Invalid User") {
+      localStorage.setItem("jwtToken", user.jwt)
+       this.props.history.push('/home')
+    }})
+
+
+    this.setState({
+      username: "",
+      password: ""
+    })
+
+    
+ 
+
+
+}
+
+handleUsernameChange = (event) => {
+  this.setState({
+    username: event.target.value
+  })
+
+}
+
+handlePasswordChange = (event) => {
+  this.setState({
+    password: event.target.value
+  })
+}
+
+  render() {
+    if (localStorage.getItem('jwtToken')) {
+      return <Redirect to="/home"/>
+    } else {
+      return(
     <div className="ui container">
       <div className="ui middle aligned center aligned grid">
         <div className="column">
@@ -13,13 +65,13 @@ const Login = () => {
               Log Into Your Account
             </div>
           </h2>
-          <form onSubmit="" className="ui large form">
+          <form onSubmit={this.handleSubmit} className="ui large form">
             <div className="ui stacked segment">
               <div className="field">
-                <input type="text" name="username" placeholder="Username"/>
+                <input type="text" name="username" placeholder="Username" onChange={this.handleUsernameChange} value={this.state.username}/>
               </div>
               <div className="field">
-                <input type="password" name="password" placeholder="Password"/>
+                <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange} value={this.state.password}/>
               </div>
               <input className="ui fluid large purple submit button" type="submit" value="Log In"/>
             </div>
@@ -31,6 +83,9 @@ const Login = () => {
       </div>
     </div>
     )
+    }
+  
+  }
   }
 export default Login
 
