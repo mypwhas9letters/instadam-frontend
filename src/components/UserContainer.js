@@ -29,7 +29,7 @@ changeURL = (event) => {
 
   render() {
     
-
+    console.log(this.props)
     const userId = this.props.user.id
     const filteredPhotos = this.props.photos.filter(photo => photo.user_id === userId)
     return (

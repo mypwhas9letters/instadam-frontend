@@ -4,8 +4,10 @@ class Photo extends React.Component {
 
   findCommentsAndUsers = () => {
     let listOfComments = []
+    if (this.props.photo.comments) {
     for (let i = 0; i < this.props.photo.comments.length; i++) {
       listOfComments.push(`${this.props.photo.users[i].username}:  ${this.props.photo.comments[i].content}`)
+    }
     }
     return listOfComments
   }
@@ -19,6 +21,7 @@ class Photo extends React.Component {
 
   render() {
     let comments = this.findCommentsAndUsers()
+    if (this.props.photo.user) {
     return (
       <div className="card">
         <div className="content">
@@ -45,12 +48,11 @@ class Photo extends React.Component {
             <i className="thumbs outline down icon"></i>
             <form onSubmit={this.addComment}>
             <input type="text" placeholder="Add Comment..."/>
-            <input type="submit" value="Add Comment"/>
             </form>
           </div>
         </div>
       </div>
-   )
+   )} else {return <div></div>}
   }
 }
 

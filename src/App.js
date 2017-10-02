@@ -27,8 +27,9 @@ class App extends Component {
     uploadPhoto(pictureParams)
     .then((photo) => {
       this.setState({
-        photos: [...this.state.photos, photo]
-      })
+        users: [...this.state.users],
+        photos: [...this.state.photos, photo.photo]
+      }, ()=> console.log(this.state.photos))
     })
   }
 
@@ -113,6 +114,7 @@ class App extends Component {
           <Route path="/users/:id" render={(routeProps) => {
                    const id = routeProps.match.params.id
                    if (this.state.users.length) {
+                    console.log("User CONTAINER")
                      return <UserContainer onUpload={this.uploadPhoto} user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
                    } else {
                      return null
