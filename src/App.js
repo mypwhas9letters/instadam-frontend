@@ -8,9 +8,9 @@ import Footer from'./components/Footer.js'
 import UserContainer from './components/UserContainer.js'
 import {Layer, Rect, Stage, Group} from 'react-konva';
 import Welcome from './components/Welcome.js'
-import { loginUser, logoutUser } from './services/user.js'
+import { loginUser, logoutUser, signUpUser } from './services/user.js'
 import { Redirect } from 'react-router-dom'
-import { uploadPhoto, addNewComment } from './services/photo.js'
+import { uploadPhoto, addNewComment, addDislike } from './services/photo.js'
 
 
 
@@ -19,6 +19,7 @@ class App extends Component {
   state = {
     users:[],
     photos: [],
+    comments: [],
     isLoggedIn: false,
     currentUser: {}
   }
@@ -28,9 +29,14 @@ class App extends Component {
     .then(() => this.fetchPhotos())
   }
 
+  addThumbs = (pictureWithDislikesParams) => {
+    addDislike(pictureWithDislikesParams)
+    .then(() => this.fetchPhotos())
+  }
+
   uploadComment = (commentParams) => {
     addNewComment(commentParams)
-    .then(() => this.fetchPhotos())
+    .then(() => this.fetchComments())
   }
 
   login = (loginParams) => {
@@ -40,6 +46,21 @@ class App extends Component {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
         this.setState({
+          currentUser: user,
+          isLoggedIn: true
+        })
+      }})
+  }
+
+    signup = (signUpParams) => {
+    signUpUser(signUpParams)
+    .then((data)=> loginUser(data))
+      .then((user) => {
+        if (user.message !== "Invalid User") {
+        localStorage.setItem("jwtToken", user.jwt)
+        localStorage.setItem("user_id", user.user.id)
+        this.setState({
+          users: [...this.state.users, user],
           currentUser: user,
           isLoggedIn: true
         })
@@ -59,6 +80,7 @@ class App extends Component {
   componentDidMount(){
     this.fetchUsers()
     this.fetchPhotos()
+    this.fetchComments()
   }
 
   fetchUsers = () => {
@@ -73,49 +95,31 @@ class App extends Component {
     .then(photos => this.setState({photos}))
   }
 
+  fetchComments = () => {
+    fetch("http://localhost:3000/comments")
+    .then(res => res.json())
+    .then(comments => this.setState({comments}))
+  }
+
   handleClick = (event) => {
 
   }
 
 
 
-  handleSubmit = (event) => {
-
-    event.preventDefault()
-    const loginParams = { username: this.state.username, password: this.state.password}
-    loginUser(loginParams)
-    .then((user) => {
-      if (user.message !== "Invalid User") {
-      localStorage.setItem("jwtToken", user.jwt)
-       this.props.history.push('/home')
-    }})
-
-
-    this.setState({
-      username: "",
-      password: ""
-    })
-
-
-
-
-
-}
-
   render() {
     if (localStorage.getItem('jwtToken')) {
    return (
         <div>
           <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
-          <Route exact path='/welcome' component={Welcome} />
-          <Route exact path = '/home' render={()=> { return <PhotoContainer onUpload={this.uploadComment} photos={this.state.photos} onClick={this.handleClick} />}}/>
-          <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
-          <Route exact path='/signup' render={Signup} />
+          <Route exact path='/' component={Welcome} />
+          <Route exact path = '/home' render={()=> { return <PhotoContainer thumbsdown={this.addThumbs} onUpload={this.uploadComment} photos={this.state.photos} comments={this.state.comments} onClick={this.handleClick} />}}/>
+          <Route exact path='/login' render={() => <Redirect to='/home'/>} />
+          <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
           <Route path="/users/:id" render={(routeProps) => {
                    const id = routeProps.match.params.id
                    if (this.state.users.length) {
-                    console.log("User CONTAINER")
-                     return <UserContainer onUpload={this.uploadPho} user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
+                     return <UserContainer onUploadPhoto={this.uploadPho} thumbsdown={this.addThumbs}  onUploadComment={this.uploadComment} user={this.state.users[id - 1]} comments={this.state.comments} photos={this.state.photos} onClick={this.handleClick} />
                    } else {
                      return null
                    }
@@ -128,8 +132,8 @@ class App extends Component {
     <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
     <Route exact path = '/home' render={() =><Redirect to='/login'/>}/>
     <Route exact path = '/profile' render={() =><Redirect to='/login'/>}/>
-    <Route exact path='/welcome' component={Welcome} />
-    <Route exact path='/signup' render={Signup} />
+    <Route exact path='/' component={Welcome} />
+    <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
     </div>
     )
    }

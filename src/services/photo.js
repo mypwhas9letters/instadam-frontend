@@ -25,3 +25,16 @@ export function addNewComment(commentParams) {
     .then((res) => res.json())
 
 }
+
+export function addDislike(pictureWithDislikesParams) {
+  const body = JSON.stringify(pictureWithDislikesParams)
+  return fetch("http://localhost:3000/photos", {
+    method: 'PATCH',
+    body: body,
+    headers: {
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+    .then((res) => res.json())
+}

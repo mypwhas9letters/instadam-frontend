@@ -22,3 +22,16 @@ export function logoutUser() {
 export function findUserId() {
   console.log(this.props)
 }
+
+export function signUpUser(signUpParams) {
+    const body = JSON.stringify(signUpParams)
+  return fetch("http://localhost:3000/signup", {
+    method: 'post',
+    body: body,
+    headers: {
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+    .then((res) => res.json())
+}

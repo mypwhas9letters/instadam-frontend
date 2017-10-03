@@ -19,7 +19,6 @@ handleSubmit = (event) => {
     event.preventDefault()
 
     const loginParams = { username: this.state.username, password: this.state.password}
-    loginUser(loginParams)
     this.props.onLogin(loginParams)
     this.setState({
       username: "",
@@ -41,9 +40,7 @@ handlePasswordChange = (event) => {
 }
 
   render() {
-    if (localStorage.getItem('jwtToken')) {
-      return <Redirect to="/home"/>
-    } else {
+
       return(
     <div className="ui container">
       <div className="ui middle aligned center aligned grid">
@@ -72,7 +69,6 @@ handlePasswordChange = (event) => {
       </div>
     </div>
     )
-    }
   
   }
   }

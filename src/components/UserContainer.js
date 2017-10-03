@@ -20,7 +20,7 @@ changeURL = (event) => {
   handleUpload = (event) => {
     event.preventDefault()
     const pictureParams = { url: event.target.firstElementChild.value, user_id: localStorage.getItem('user_id')}
-    this.props.onUpload(pictureParams)
+    this.props.onUploadPhoto(pictureParams)
     this.setState({
       url: ''
     })
@@ -29,7 +29,6 @@ changeURL = (event) => {
 
   render() {
 
-    console.log(this.props)
     const userId = this.props.user.id
     const filteredPhotos = this.props.photos.filter(photo => photo.user_id === userId)
     return (
@@ -40,7 +39,7 @@ changeURL = (event) => {
         <input type="submit" value="Upload Photo"/>
         </form><br/>
         <div className="ui link cards">
-        {filteredPhotos.map((photo, index) => <Photo key={index} photo={photo} onClick={this.props.onClick} />)}
+        {filteredPhotos.map((photo, index) => <Photo thumbsdown={this.props.thumbsdown} comments={this.props.comments} onUpload={this.props.onUploadComment} key={index} photo={photo} onClick={this.props.onClick} />)}
     </div>
   </div>
     )
