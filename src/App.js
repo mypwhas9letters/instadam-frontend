@@ -10,7 +10,7 @@ import {Layer, Rect, Stage, Group} from 'react-konva';
 import Welcome from './components/Welcome.js'
 import { loginUser, logoutUser } from './services/user.js'
 import { Redirect } from 'react-router-dom'
-import { uploadPhoto } from './services/photo.js'
+import { uploadPhoto, addNewComment } from './services/photo.js'
 
 
 
@@ -23,14 +23,14 @@ class App extends Component {
     currentUser: {}
   }
 
-  uploadPhoto = (pictureParams) => {
+  uploadPho = (pictureParams) => {
     uploadPhoto(pictureParams)
-    .then((photo) => {
-      this.setState({
-        users: [...this.state.users],
-        photos: [...this.state.photos, photo.photo]
-      }, ()=> console.log(this.state.photos))
-    })
+    .then(() => this.fetchPhotos())
+  }
+
+  uploadComment = (commentParams) => {
+    addNewComment(commentParams)
+    .then(() => this.fetchPhotos())
   }
 
   login = (loginParams) => {
@@ -96,8 +96,8 @@ class App extends Component {
       password: ""
     })
 
-    
- 
+
+
 
 
 }
@@ -108,14 +108,14 @@ class App extends Component {
         <div>
           <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
           <Route exact path='/welcome' component={Welcome} />
-          <Route exact path = '/home' render={()=> { return <PhotoContainer photos={this.state.photos} onClick={this.handleClick} />}}/>
+          <Route exact path = '/home' render={()=> { return <PhotoContainer onUpload={this.uploadComment} photos={this.state.photos} onClick={this.handleClick} />}}/>
           <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
           <Route exact path='/signup' render={Signup} />
           <Route path="/users/:id" render={(routeProps) => {
                    const id = routeProps.match.params.id
                    if (this.state.users.length) {
                     console.log("User CONTAINER")
-                     return <UserContainer onUpload={this.uploadPhoto} user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
+                     return <UserContainer onUpload={this.uploadPho} user={this.state.users[id - 1]} photos={this.state.photos} onClick={this.handleClick} />
                    } else {
                      return null
                    }
@@ -123,7 +123,7 @@ class App extends Component {
           <Footer />
         </div>
     ) } else {
-    return (<div> 
+    return (<div>
     <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
     <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
     <Route exact path = '/home' render={() =><Redirect to='/login'/>}/>

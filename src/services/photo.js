@@ -11,3 +11,17 @@ export function uploadPhoto(pictureParams) {
     .then((res) => res.json())
 
 }
+
+export function addNewComment(commentParams) {
+  const body = JSON.stringify(commentParams)
+  return fetch("http://localhost:3000/newcomment", {
+    method: 'post',
+    body: body,
+    headers: {
+      "Accept":"application/json",
+      "Content-Type":"application/json"
+    }
+  })
+    .then((res) => res.json())
+
+}

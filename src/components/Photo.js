@@ -1,6 +1,13 @@
 import React from 'react'
 
+
 class Photo extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      value: ""
+    }
+  }
 
   findCommentsAndUsers = () => {
     let listOfComments = []
@@ -12,11 +19,15 @@ class Photo extends React.Component {
     return listOfComments
   }
 
+  handleChange = (event) => {
+      this.setState({value: event.target.value});
+    }
+
   addComment = (event) => {
     event.preventDefault()
-    console.log(localStorage.getItem('user_id'))
-    console.log(event.target.firstElementChild.value)
-    console.log(this.props.photo.id)
+    const commentParams = { content: this.state.value, photo_id: this.props.photo.id, user_id: localStorage.getItem('user_id')}
+    this.props.onUpload(commentParams)
+    this.setState({value: ""})
   }
 
   render() {
@@ -44,12 +55,14 @@ class Photo extends React.Component {
           )}
         </div>
         <div className="extra content">
+        <form onSubmit={this.addComment}>
           <div className="ui large transparent left icon input">
-            <i className="thumbs outline down icon"></i>
-            <form onSubmit={this.addComment}>
-            <input type="text" placeholder="Add Comment..."/>
-            </form>
+            <i className="comment outline down icon"></i>
+            <input type="text" placeholder="Add Comment..." value={this.state.value} onChange={this.handleChange}/>
+            <button type="submit" className="ui icon negative button"><i className="thumbs outline down icon"></i></button>
           </div>
+        </form>
+
         </div>
       </div>
    )} else {return <div></div>}
