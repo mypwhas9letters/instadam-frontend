@@ -37,11 +37,15 @@ class Photo extends React.Component {
 
   addComment = (event) => {
     event.preventDefault()
+    var sentiment = require('sentiment')
+    if (sentiment(this.state.value).score < 0) {
     if (this.state.value.length) {
     const commentParams = { content: this.state.value, photo_id: this.props.photo.id, user_id: localStorage.getItem('user_id')}
     this.props.onUpload(commentParams)
     this.setState({value: ""})}
-  }
+  } else {alert('This comment is too positive! Be Meaner!')
+    this.setState({value: ""})}
+} 
 
   render() {
     let comments = this.findCommentsAndUsers()
