@@ -37,6 +37,7 @@ class Photo extends React.Component {
 
   addComment = (event) => {
     event.preventDefault()
+    if (!this.state.value) {alert("You can't post a blank comment... idiot")} else {
     var sentiment = require('sentiment')
     if (sentiment(this.state.value).score < 0) {
     if (this.state.value.length) {
@@ -44,7 +45,7 @@ class Photo extends React.Component {
     this.props.onUpload(commentParams)
     this.setState({value: ""})}
   } else {alert('This comment is too positive! Be Meaner!')
-    this.setState({value: ""})}
+    this.setState({value: ""})}}
 } 
 
   render() {
