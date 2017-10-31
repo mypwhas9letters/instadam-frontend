@@ -46,7 +46,6 @@ handlePasswordChange = (event) => {
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui purple image header">
-            <img src={instadamWhiteMid} className="image" alt=""/>
             <div className="content">
               Log Into Your Account
             </div>

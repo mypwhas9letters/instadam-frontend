@@ -13,7 +13,6 @@ const Navbar = (props) => {
       return(
     <div className="ui menu inverted purple">
       <div className="ui container">
-        <img src={instadamWhiteMid} className="App-logo" alt="logo" />
         <img src={logo} className="App-instadam" alt="logo" />
         <NavLink className="item right" to="/home" exact activeStyle={{background: 'hotpink'}}>Home</NavLink>
         <NavLink className="item" to={`/users/${localStorage.getItem('user_id')}`} exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
@@ -25,7 +24,6 @@ const Navbar = (props) => {
       return(
     <div className="ui menu inverted purple">
       <div className="ui container">
-        <img src={instadamWhiteMid} className="App-logo" alt="logo" />
         <img src={logo} className="App-instadam" alt="logo" />
         <NavLink className="item right" to="/home" exact activeStyle={{background: 'hotpink'}}>Home</NavLink>
         <NavLink className="item" to="/profile" exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
