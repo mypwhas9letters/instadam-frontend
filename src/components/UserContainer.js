@@ -1,6 +1,6 @@
 import React from 'react'
 import Photo from './Photo.js'
-import { uploadPhoto } from '../services/photo.js'
+// import { uploadPhoto } from '../services/photo.js'
 
 class UserContainer extends React.Component {
 

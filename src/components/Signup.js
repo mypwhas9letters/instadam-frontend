@@ -1,5 +1,5 @@
 import React from 'react'
-import instadamWhiteMid from '../instadamWhiteMid.png';
+import instadam from '../images/instadam.png';
 
 
 class Signup extends React.Component {
@@ -56,7 +56,7 @@ class Signup extends React.Component {
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui purple image header">
-            <img src={instadamWhiteMid} className="image" alt=""/>
+            <img src={instadam} className="image" alt=""/>
             <div className="content">
               Create a New Account
             </div>

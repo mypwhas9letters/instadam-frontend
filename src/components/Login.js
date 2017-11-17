@@ -1,7 +1,6 @@
 import React from 'react'
-import instadamWhiteMid from '../instadamWhiteMid.png';
-import { loginUser } from '../services/user.js'
-import { Redirect } from 'react-router-dom'
+// import { loginUser } from '../services/user.js'
+// import { Redirect } from 'react-router-dom'
 
 
 class Login extends React.Component {
@@ -68,7 +67,7 @@ handlePasswordChange = (event) => {
       </div>
     </div>
     )
-  
+
   }
   }
 export default Login

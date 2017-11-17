@@ -1,5 +1,5 @@
 import React from 'react'
-import { addDislike } from '../services/photo.js'
+// import { addDislike } from '../services/photo.js'
 
 
 class Photo extends React.Component {
@@ -46,7 +46,7 @@ class Photo extends React.Component {
     this.setState({value: ""})}
   } else {alert('This comment is too positive! Be Meaner!')
     this.setState({value: ""})}}
-} 
+}
 
   render() {
     let comments = this.findCommentsAndUsers()

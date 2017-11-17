@@ -1,10 +1,10 @@
 import React from 'react'
-import instadamWhiteMid from '../instadamWhiteMid.png';
+// import instadam from '../images/instadam.png';
 import logo from '../logo.png';
 import '../App.css';
 import {NavLink} from 'react-router-dom'
-import { logoutUser } from '../services/user.js'
-import { findUserId } from '../services/user.js'
+// import { logoutUser } from '../services/user.js'
+// import { findUserId } from '../services/user.js'
 
 
 
