@@ -20,7 +20,8 @@ class App extends Component {
     photos: [],
     comments: [],
     isLoggedIn: false,
-    currentUser: {}
+    currentUser: {},
+    sent: ""
   }
 
   uploadPho = (pictureParams) => {
@@ -100,18 +101,12 @@ class App extends Component {
     .then(comments => this.setState({comments}))
   }
 
-  handleClick = (event) => {
-
-  }
-
-
-
   render() {
     if (localStorage.getItem('jwtToken')) {
-   return (
+    return (
         <div>
           <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
-          <Route exact path='/' component={Welcome} />
+          <Route exact path='/' render={()=> { return <Welcome sent={this.state.sent}/>}}/>
           <Route exact path = '/home' render={()=> { return <PhotoContainer thumbsdown={this.addThumbs} onUpload={this.uploadComment} photos={this.state.photos} comments={this.state.comments} onClick={this.handleClick} />}}/>
           <Route exact path='/login' render={() => <Redirect to='/home'/>} />
           <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
@@ -126,14 +121,16 @@ class App extends Component {
           <Footer />
         </div>
     ) } else {
-    return (<div>
-    <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
-    <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
-    <Route exact path = '/home' render={() =><Redirect to='/login'/>}/>
-    <Route exact path = '/profile' render={() =><Redirect to='/login'/>}/>
-    <Route exact path='/' component={Welcome} />
-    <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
-    </div>
+    return (
+      <div>
+        <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
+        <Route exact path='/login' render={(props)=> <Login onLogin={this.login} {...props} />} />
+        <Route exact path = '/home' render={() =><Redirect to='/login'/>}/>
+        <Route exact path = '/profile' render={() =><Redirect to='/login'/>}/>
+        <Route exact path='/' component={Welcome} />
+        <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
+        <Footer />
+      </div>
     )
    }
   }

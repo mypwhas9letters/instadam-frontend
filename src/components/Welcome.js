@@ -3,32 +3,31 @@ import instadam from '../images/instadam.png';
 import instafam from '../images/instafam.png';
 import '../App.css';
 import { Link } from 'react-router-dom'
-import Footer from'./Footer.js'
 
 class Welcome extends React.Component {
+  constructor(props) {
+    super(props)
 
-render() {
-  return(
-    <div>
-      <div className="ui container">
-        <div className="ui middle aligned center aligned grid">
-          <h1>Welcome to Instadam!</h1>
-        </div>
-        <div className="ui middle aligned center aligned grid">
-          <img className="App-instadam-welcome" src={instadam} alt=""/>
-          <img className="App-instadam-welcome" src={instafam} alt=""/>
-        </div>
-        <div className="ui middle aligned center aligned grid">
-          <div className="ui large buttons">
-            <Link to={'/login'}><button className="ui button">Login</button></Link>
-            <div className="or"></div>
-            <Link to={'/signup'}><button className="ui button">Signup</button></Link>
+    this.state = {
+      sent: props.sent,
+    }
+  }
+
+  render() {
+    return(
+      <div>
+        <br/>
+        <div className="ui container">
+          <div className="ui middle aligned center aligned grid">
+            <h1>Welcome to Sentimentalgram!</h1><br/>
+          </div>
+          <div className="ui middle aligned center aligned grid">
+            <Link to={'/login'} name="positive"><img className="App-instadam-welcome" src={instadam} alt=""/></Link>
+            <Link to={'/login'} name="negative"><img className="App-instadam-welcome" src={instafam} alt=""/></Link>
           </div>
         </div>
+        <br/>
       </div>
-      <br/>
-      <Footer/>
-    </div>
     )
   }
 

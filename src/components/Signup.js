@@ -1,11 +1,8 @@
 import React from 'react'
-import instadam from '../images/instadam.png';
-
 
 class Signup extends React.Component {
   constructor(props) {
     super(props)
-
 
     this.state = {
       username: '',
@@ -13,7 +10,6 @@ class Signup extends React.Component {
       confirmedPassword: ''
     }
   }
-
 
   handleUsername = (event) => {
     this.setState({
@@ -56,7 +52,6 @@ class Signup extends React.Component {
       <div className="ui middle aligned center aligned grid">
         <div className="column">
           <h2 className="ui purple image header">
-            <img src={instadam} className="image" alt=""/>
             <div className="content">
               Create a New Account
             </div>
@@ -85,14 +80,3 @@ class Signup extends React.Component {
     }
   }
 export default Signup
-
-
-
-
-
-
-// <form onSubmit="">
-//   <input type="text" name="username" placeholder="Username"/>
-//   <input type="password" name="password" placeholder="Password"/>
-//   <input type="submit" value="signup"/>
-// </form>

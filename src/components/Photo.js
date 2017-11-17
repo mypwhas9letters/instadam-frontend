@@ -1,6 +1,4 @@
 import React from 'react'
-// import { addDislike } from '../services/photo.js'
-
 
 class Photo extends React.Component {
   constructor(props){
@@ -19,15 +17,10 @@ class Photo extends React.Component {
 
     let listOfComments = []
     if (this.props.comments) {
-    for (let i = 0; i < this.props.comments.length; i++) {
-    if (this.props.photo.id === this.props.comments[i].photo_id)
-    listOfComments.push(`${this.props.comments[i].user.username}: ${this.props.comments[i].content}`)}
-  }
-    // if (this.props.photo.comments) {
-    // for (let i = 0; i < this.props.photo.comments.length; i++) {
-    //   listOfComments.push(`${this.props.photo.users[i].username}:  ${this.props.photo.comments[i].content}`)
-    // }
-    // }
+      for (let i = 0; i < this.props.comments.length; i++) {
+        if (this.props.photo.id === this.props.comments[i].photo_id && this.props.comments[i].sentiment === "negative")
+          listOfComments.push(`${this.props.comments[i].user.username}: ${this.props.comments[i].content}`)}
+        }
     return listOfComments
   }
 
@@ -83,7 +76,8 @@ class Photo extends React.Component {
 
         </div>
       </div>
-   )} else {return <div></div>}
+   )} else {
+     return <div></div>}
   }
 }
 

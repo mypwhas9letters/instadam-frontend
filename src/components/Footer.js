@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Navbar = () => {
   return(
     <div className="ui inverted vertical footer segment purple">
